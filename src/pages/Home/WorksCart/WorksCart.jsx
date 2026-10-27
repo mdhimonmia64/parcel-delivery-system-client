@@ -95,7 +95,7 @@ const WorksCart = () => {
             const Icon = service.icon;
 
             return (
-                <div className="aura text-indigo-500 bg-lime-400">
+                <div key={service.id} className="aura text-indigo-500 bg-lime-400">
               <article
                 key={service.id}
                 data-aos={index % 2 === 0 ? "fade-up" : "fade-down"}
