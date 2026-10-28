@@ -19,6 +19,13 @@ const Navbar = () => {
     const navItems = <>
     <li><NavLink to="/">Home</NavLink></li>
     <li><NavLink to="/services">Services</NavLink></li>
+    <li><NavLink to="/coverage">Coverage</NavLink></li>
+    <li><NavLink to="/sendParcel">Sand A Parcel</NavLink></li>
+    {
+      user && <>
+      <li><NavLink to='/dashboard'>Dashboard</NavLink></li>
+      </>
+    }
     <li><NavLink to="/about">About Us</NavLink></li>
     <li><NavLink to="/rider">Be a Rider</NavLink></li>
     </>
