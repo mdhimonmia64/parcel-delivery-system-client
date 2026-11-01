@@ -27,11 +27,12 @@ const Navbar = () => {
       </>
     }
     <li><NavLink to="/about">About Us</NavLink></li>
-    <li><NavLink to="/rider">Be a Rider</NavLink></li>
+    <li><NavLink to="/beARider">Be a Rider</NavLink></li>
     </>
 
   return (
-    <div className="navbar bg-base-100 shadow-sm container mx-auto">
+    <div className="aura aura-holo display: block container mx-auto sticky top-0 z-50">
+    <div className=" navbar bg-base-100 shadow-sm container mx-auto rounded">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -71,6 +72,7 @@ const Navbar = () => {
           user ? <button onClick={handleLogOut} className='btn bg-[#CAEB66] text-black rounded'>LogOut</button> : <Link to="/login" className='btn bg-[#CAEB66] text-black rounded'>Login</Link>
         }
       </div>
+    </div>
     </div>
   );
 };

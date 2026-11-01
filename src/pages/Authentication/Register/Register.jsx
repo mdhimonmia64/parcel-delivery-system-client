@@ -1,10 +1,12 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import useAuth from "../../../hooks/useAuth";
 import SocialLogin from "../SocialLogin/SocialLogin";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
+import axios from "axios";
+import useAxios from "../../../hooks/useAxios";
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -13,16 +15,57 @@ const Register = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { createUser } = useAuth();
+  const { createUser, updateUserProfile } = useAuth();
+  const [profilePic, setProfilePic] = useState("");
+  const axiosInstance = useAxios();
+    const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from || '/';
 
   const onSubmit = (data) => {
     createUser(data.email, data.password)
-      .then((result) => {
+      .then(async (result) => {
         console.log(result.user);
+
+        // update userinfo in the database
+        const userInfo = {
+          email: data.email,
+          role: "user",
+          created_at: new Date().toISOString(),
+          last_log_in: new Date().toISOString(),
+        };
+
+        const userRes = await axiosInstance.post("/users", userInfo);
+        console.log(userRes.data);
+
+        // update user profile in firebase
+        const userProfile = {
+          displayName: data.name,
+          photoURL: profilePic,
+        };
+        updateUserProfile(userProfile)
+          .then(() => {
+            console.log("Profile name pic updated");
+            navigate(from);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       })
       .catch((error) => {
         console.error(error.message);
       });
+  };
+
+  const handleImageUpload = async (e) => {
+    const image = e.target.files[0];
+    const formData = new FormData();
+    formData.append("image", image);
+    const imagUploadUrl = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_upload_key}`;
+
+    const res = await axios.post(imagUploadUrl, formData);
+
+    setProfilePic(res.data?.data?.url);
   };
 
   return (
@@ -31,12 +74,19 @@ const Register = () => {
         <h1 className="text-5xl font-bold">Create Account</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
           <fieldset className="fieldset">
+            <label className="label">Your Image</label>
+            <input
+              type="file"
+              onChange={handleImageUpload}
+              className="input w-full cursor-pointer"
+              placeholder="Your name"
+            />
             <label className="label">Name</label>
             <input
               type="text"
               {...register("name", { required: true })}
               className="input w-full"
-              placeholder="Name"
+              placeholder="Your name"
             />
             {errors.name?.type === "required" && (
               <p className="text-red-500">Name is required</p>

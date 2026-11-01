@@ -128,7 +128,8 @@ const SendParcel = () => {
           <p className="text-gray-500">Fill in the details below</p>
         </div>
 
-        <div className="border p-4 rounded-xl shadow-md space-y-4">
+
+        <div className=" border p-4 rounded-xl shadow-md space-y-4">
           <h3 className="font-semibold text-xl">Parcel Info</h3>
           <div className="space-y-4">
             <div>
@@ -188,9 +189,8 @@ const SendParcel = () => {
           </div>
         </div>
 
-
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="border p-4 rounded-xl shadow-md space-y-4">
+          <div className=" border p-4 rounded-xl shadow-md space-y-4">
             <h3 className="font-semibold text-xl">Sender Info</h3>
             <div className="grid grid-cols-1 gap-4">
               <input

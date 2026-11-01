@@ -70,13 +70,13 @@ const BangladeshMap = ({ serviceCenters }) => {
       </div>
 
       {/* Map Section */}
-      <div className="flex justify-center">
+      <div className="flex justify-center aura aura-gold">
         <div className="w-full max-w-6xl rounded-xl shadow-lg overflow-hidden border border-gray-200">
           <MapContainer
             center={bangladeshCenter}
             zoom={8}
             scrollWheelZoom={true}
-            className="h-[600px] w-full"
+            className="h-[600px] w-full "
           >
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
